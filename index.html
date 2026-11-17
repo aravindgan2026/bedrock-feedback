@@ -6,68 +6,171 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://slkqgmftytsprzqufdjp.supabase.co; img-src data:; base-uri 'none'; form-action 'none'">
-<title>Bedrock feedback</title>
+<title>Thank you · Bedrock</title>
 <style>
-  :root { --bg:#F6E0D0; --card:#FFFFFF; --ink:#3B2716; --muted:#7A6555; --accent:#FF4D00; --line:#EBD3C0; --ok:#2F7A4A; }
+  :root { --bg:#FFF8F3; --ink:#1D1D1F; --muted:#6E6E73; --soft:#FFFFFF; --line:#F0E4DA; --accent:#FF4D00; --pill:#1D1D1F; --pill-ink:#FFFFFF;
+          --fur:#FFC9A3; --fur2:#FFB385; --ear:#FF9E9E; --face:#3A2A20; --blush:#FF8A8A; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141210; --ink:#F5F5F7; --muted:#A1A1A6; --soft:#221E1B; --line:#2E2925; --pill:#F5F5F7; --pill-ink:#000000; } }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
-  main { max-width:520px; margin:0 auto; padding:32px max(16px, env(safe-area-inset-left)) 40px max(16px, env(safe-area-inset-right)); }
-  .card { background:var(--card); border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; gap:18px; }
-  .brand { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; }
-  h1 { font-size:22px; line-height:1.3; margin:0; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); }
+  body { font:17px/1.47 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:420px; margin:0 auto; min-height:100vh; padding:8vh 24px 28px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .brand { font-size:13px; font-weight:600; letter-spacing:.02em; color:var(--accent); margin-bottom:18px; }
+  section { display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; }
+  h1 { font-size:30px; line-height:1.15; letter-spacing:-.02em; font-weight:700; margin:0; text-wrap:balance; }
   p { margin:0; }
-  .muted { color:var(--muted); font-size:14px; }
-  .faces { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-  .face { flex:1 1 130px; padding:14px 16px; border-radius:14px; border:2px solid var(--accent); background:#fff; color:var(--ink); font:600 17px/1.2 inherit; cursor:pointer; }
-  .face[aria-pressed="true"] { background:var(--accent); color:#fff; }
-  .face:focus-visible, button:focus-visible, textarea:focus-visible { outline:3px solid var(--ink); outline-offset:2px; }
-  textarea { width:100%; min-height:96px; border:1px solid var(--line); border-radius:12px; padding:12px; font:inherit; color:var(--ink); resize:vertical; }
-  .primary { align-self:flex-start; padding:12px 20px; border-radius:12px; border:0; background:var(--ink); color:#fff; font:600 16px/1 inherit; cursor:pointer; }
-  .primary[disabled] { opacity:.5; cursor:default; }
-  .note { font-size:14px; color:var(--ok); min-height:1.2em; }
-  .foot { text-align:center; font-size:12px; color:var(--muted); margin-top:14px; }
-  .foot a { color:var(--muted); }
+  .lead { font-size:18px; color:var(--muted); text-wrap:balance; }
+  .muted { color:var(--muted); }
+  .small { font-size:14px; }
+
+  /* the cat */
+  .stage { position:relative; width:210px; height:200px; margin-bottom:6px; }
+  .cat { width:210px; height:200px; overflow:visible; animation:hop .6s cubic-bezier(.2,1.5,.4,1) both; transform-origin:50% 100%; }
+  @keyframes hop { from { transform:translateY(24px) scale(.85); } to { transform:none; } }
+  .cat .head { transform-origin:100px 150px; animation:bob 3.2s ease-in-out .6s infinite; }
+  @keyframes bob { 0%,100% { transform:rotate(0); } 50% { transform:rotate(2.5deg); } }
+  .mood-not_good .cat .head { animation:none; transform:rotate(-7deg); }
+  .eyes, .mouth, .extra { display:none; }
+  .mood-good .m-good, .mood-okay .m-okay, .mood-not_good .m-not_good { display:inline; }
+  .wave { transform-origin:150px 178px; animation:wave 1.1s ease-in-out .7s 3; }
+  @keyframes wave { 0%,100% { transform:rotate(0); } 30% { transform:rotate(-22deg); } 60% { transform:rotate(8deg); } }
+  .blink { transform-origin:100px 100px; animation:blink 4s 1.5s infinite; }
+  @keyframes blink { 0%,94%,100% { transform:scaleY(1); } 97% { transform:scaleY(.1); } }
+  .hearts { position:absolute; inset:0; pointer-events:none; }
+  .hearts span { position:absolute; bottom:60%; font-size:22px; opacity:0; animation:float 2.6s ease-out infinite; }
+  .hearts span:nth-child(1) { left:8%;  animation-delay:.5s; }
+  .hearts span:nth-child(2) { left:78%; animation-delay:1.2s; font-size:18px; }
+  .hearts span:nth-child(3) { left:22%; animation-delay:2s; font-size:16px; }
+  .hearts span:nth-child(4) { left:68%; animation-delay:2.7s; }
+  @keyframes float { 0% { transform:translateY(10px) scale(.6); opacity:0; } 20% { opacity:1; } 100% { transform:translateY(-90px) scale(1.1); opacity:0; } }
+  .mood-okay .hearts, .mood-not_good .hearts { display:none; }
+
+  .card { width:100%; margin-top:22px; background:var(--soft); border:1px solid var(--line); border-radius:22px; padding:16px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  textarea { width:100%; min-height:96px; border:1px solid var(--line); border-radius:14px; background:var(--bg); color:var(--ink); padding:12px 14px; font:inherit; font-size:16px; resize:vertical; }
+  .pill { border:0; border-radius:980px; background:var(--pill); color:var(--pill-ink); padding:11px 26px; font:inherit; font-size:16px; font-weight:600; cursor:pointer; }
+  .pill[disabled] { opacity:.45; cursor:default; }
+  .link { background:none; border:0; padding:6px; color:var(--accent); font:inherit; font-size:15px; cursor:pointer; }
+  button:focus-visible, textarea:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .status { min-height:1.3em; font-size:14px; color:var(--muted); }
+
+  .change { margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .faces { display:flex; gap:12px; }
+  .face { width:46px; height:46px; border-radius:50%; border:1px solid var(--line); background:var(--soft); font-size:23px; line-height:1; cursor:pointer; transition:transform .15s, box-shadow .15s; }
+  .face:active { transform:scale(.9); }
+  .face[aria-pressed="true"] { box-shadow:0 0 0 2.5px var(--accent); border-color:transparent; }
+  .big { font-size:64px; line-height:1; margin-bottom:8px; }
+  .foot { margin-top:auto; padding-top:44px; font-size:11px; color:var(--muted); }
   [hidden] { display:none !important; }
+  @media (prefers-reduced-motion: reduce) { .cat, .cat .head, .wave, .blink, .hearts span { animation:none !important; } .hearts { display:none; } }
 </style>
 </head>
 <body>
 <main>
-  <div class="card">
-    <div class="brand">Bedrock</div>
+  <div class="brand">Bedrock</div>
 
-    <section id="busy"><p class="muted">One moment…</p></section>
+  <section id="busy"><p class="muted small">One moment</p></section>
 
-    <section id="answer" hidden style="display:flex;flex-direction:column;gap:18px">
-      <h1 id="answer-title">How has it been dealing with us?</h1>
-      <p id="saved" class="muted" hidden>Your answer is saved. Tap another face to change it.</p>
+  <section id="answer" class="mood-good" hidden>
+    <div class="stage" aria-hidden="true">
+      <svg class="cat" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g class="head">
+          <path d="M44 92 L52 30 Q55 24 61 28 L96 58 Z" fill="var(--fur2)"/>
+          <path d="M156 92 L148 30 Q145 24 139 28 L104 58 Z" fill="var(--fur2)"/>
+          <path d="M55 74 L60 40 L84 60 Z" fill="var(--ear)"/>
+          <path d="M145 74 L140 40 L116 60 Z" fill="var(--ear)"/>
+          <ellipse cx="100" cy="112" rx="66" ry="58" fill="var(--fur)"/>
+          <path d="M84 56 Q100 50 116 56 L112 68 Q100 64 88 68 Z" fill="var(--fur2)" opacity=".7"/>
+          <ellipse cx="66" cy="124" rx="11" ry="7" fill="var(--blush)" opacity=".45"/>
+          <ellipse cx="134" cy="124" rx="11" ry="7" fill="var(--blush)" opacity=".45"/>
+          <!-- eyes -->
+          <g class="eyes m-good" fill="none" stroke="var(--face)" stroke-width="5" stroke-linecap="round">
+            <path d="M68 106 Q79 92 90 106"/><path d="M110 106 Q121 92 132 106"/>
+          </g>
+          <g class="eyes m-okay"><g class="blink">
+            <circle cx="80" cy="104" r="7" fill="var(--face)"/><circle cx="120" cy="104" r="7" fill="var(--face)"/>
+            <circle cx="82.5" cy="101.5" r="2.2" fill="#fff"/><circle cx="122.5" cy="101.5" r="2.2" fill="#fff"/>
+          </g></g>
+          <g class="eyes m-not_good">
+            <path d="M68 93 L87 86" stroke="var(--face)" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M132 93 L113 86" stroke="var(--face)" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="79" cy="106" r="10" fill="var(--face)"/><circle cx="121" cy="106" r="10" fill="var(--face)"/>
+            <circle cx="82.5" cy="102" r="3.4" fill="#fff"/><circle cx="124.5" cy="102" r="3.4" fill="#fff"/>
+            <circle cx="76" cy="110" r="1.6" fill="#fff"/><circle cx="118" cy="110" r="1.6" fill="#fff"/>
+          </g>
+          <!-- nose + mouth -->
+          <path d="M95 117 L105 117 L100 123 Z" fill="var(--face)" stroke="var(--face)" stroke-width="2" stroke-linejoin="round"/>
+          <g class="mouth m-good" fill="none" stroke="var(--face)" stroke-width="3.5" stroke-linecap="round">
+            <path d="M88 126 Q94 136 100 126 Q106 136 112 126"/>
+          </g>
+          <g class="mouth m-okay" fill="none" stroke="var(--face)" stroke-width="3.5" stroke-linecap="round">
+            <path d="M91 127 Q95.5 133 100 127 Q104.5 133 109 127"/>
+          </g>
+          <g class="mouth m-not_good" fill="none" stroke="var(--face)" stroke-width="3.5" stroke-linecap="round">
+            <path d="M92 134 Q96 129 100 132 Q104 135 108 130"/>
+          </g>
+          <!-- whiskers -->
+          <g stroke="var(--face)" stroke-width="2" stroke-linecap="round" opacity=".55">
+            <path d="M48 116 L26 112"/><path d="M48 124 L26 127"/><path d="M152 116 L174 112"/><path d="M152 124 L174 127"/>
+          </g>
+        </g>
+        <!-- paws -->
+        <ellipse cx="62" cy="178" rx="20" ry="13" fill="var(--fur)"/>
+        <g class="extra m-okay"><g class="wave"><ellipse cx="150" cy="166" rx="16" ry="20" fill="var(--fur)"/>
+          <path d="M142 152 v6 M150 150 v7 M158 152 v6" stroke="var(--fur2)" stroke-width="2.5" stroke-linecap="round"/></g></g>
+        <g class="extra m-good m-not_good"><ellipse cx="138" cy="178" rx="20" ry="13" fill="var(--fur)"/></g>
+        <g class="extra m-not_good"><path d="M100 176 c-6-8-18-4-14 5 c3 6 14 12 14 12 s11-6 14-12 c4-9-8-13-14-5z" fill="#FF6B6B"/></g>
+      </svg>
+      <div class="hearts"><span>&#10084;&#65039;</span><span>&#10024;</span><span>&#129505;</span><span>&#10024;</span></div>
+    </div>
+
+    <h1 id="title">Yay! You made our day.</h1>
+    <p class="lead" id="lead">Thank you. We'll pass the love along to the team.</p>
+
+    <button class="link" id="add" type="button">Add a note</button>
+    <div class="card" id="notebox" hidden>
+      <label for="words" id="ask" class="muted small">Anything you'd like us to know?</label>
+      <textarea id="words" maxlength="2000" placeholder="Type here"></textarea>
+      <button id="send" class="pill" type="button">Send</button>
+    </div>
+    <p id="note" class="status" role="status" aria-live="polite"></p>
+
+    <div class="change">
+      <p class="muted small">Picked the wrong one?</p>
       <div class="faces" role="group" aria-label="Your answer">
-        <button class="face" data-a="good" aria-pressed="false">&#128578;&nbsp;Good</button>
-        <button class="face" data-a="okay" aria-pressed="false">&#128528;&nbsp;Okay</button>
-        <button class="face" data-a="not_good" aria-pressed="false">&#128577;&nbsp;Not good</button>
+        <button class="face" data-a="good" aria-pressed="false" aria-label="Loved it">&#129321;</button>
+        <button class="face" data-a="okay" aria-pressed="false" aria-label="It was fine">&#128578;</button>
+        <button class="face" data-a="not_good" aria-pressed="false" aria-label="Not great">&#128556;</button>
       </div>
-      <label for="words" class="muted">Anything to add? It goes to our team. (Optional)</label>
-      <textarea id="words" maxlength="2000"></textarea>
-      <button id="send" class="primary" type="button">Send</button>
-      <p id="note" class="note" role="status" aria-live="polite"></p>
-      <p class="muted">Answers go to our team so we can do better. They do not change anything on a deal.</p>
-    </section>
+    </div>
+  </section>
 
-    <section id="stop" hidden style="display:flex;flex-direction:column;gap:18px">
-      <h1 id="stop-title">Stop these emails?</h1>
-      <p class="muted">We will not send you feedback questions again.</p>
-      <button id="stop-yes" class="primary" type="button">Yes, stop them</button>
-    </section>
+  <section id="stop" hidden>
+    <div class="big" aria-hidden="true">&#128075;</div>
+    <h1 id="stop-title">Stop these emails?</h1>
+    <p class="lead">No hard feelings. We won't ask again.</p>
+    <div style="height:14px"></div>
+    <button id="stop-yes" class="pill" type="button">Stop emails</button>
+    <button id="stop-no" class="link" type="button">Keep them</button>
+  </section>
 
-    <section id="stopped" hidden style="display:flex;flex-direction:column;gap:12px">
-      <h1>Done.</h1>
-      <p class="muted">You won't get these feedback emails from us again.</p>
-    </section>
+  <section id="stopped" hidden>
+    <div class="big" aria-hidden="true">&#128591;</div>
+    <h1>You're all set.</h1>
+    <p class="lead">You won't get these from us again. Thanks for working with us.</p>
+  </section>
 
-    <section id="bad" hidden style="display:flex;flex-direction:column;gap:12px">
-      <h1>This link isn't working.</h1>
-      <p class="muted">It may be incomplete or out of date. You can reply to the email in your own words instead, and it reaches our team.</p>
-    </section>
-  </div>
+  <section id="kept" hidden>
+    <div class="big" aria-hidden="true">&#129392;</div>
+    <h1>Glad you're sticking around.</h1>
+    <p class="lead">You can close this tab.</p>
+  </section>
+
+  <section id="bad" hidden>
+    <div class="big" aria-hidden="true">&#129300;</div>
+    <h1>This link isn't working.</h1>
+    <p class="lead">Just reply to the email instead. It reaches our team.</p>
+  </section>
+
   <p class="foot">Bedrock Applications, Inc. · PO Box 5332, Atlanta, GA 31107</p>
 </main>
 <script>
@@ -77,8 +180,20 @@
   var t = q.get("t") || "";
   var a = q.get("a") || "look";
   var FACES = ["good", "okay", "not_good"];
+  var first = "";
+  var COPY = {
+    good:     { title: function (n) { return "Yay! You made our day."; },
+                lead:  function (n) { return (n ? "Thank you, " + n + ". " : "Thank you. ") + "We'll pass the love along to the team."; },
+                ask: "Anything you'd like to add?", open: false },
+    okay:     { title: function (n) { return n ? "Thanks, " + n + "!" : "Thank you!"; },
+                lead:  function () { return "Glad it went fine. If one thing could have been better, we'd love to hear it."; },
+                ask: "What's one thing we could do better?", open: false },
+    not_good: { title: function (n) { return n ? "Thanks for being honest, " + n + "." : "Thanks for being honest."; },
+                lead:  function () { return "We're sorry it wasn't great. We read every one of these. What happened?"; },
+                ask: "What happened?", open: true }
+  };
   function $(id) { return document.getElementById(id); }
-  function show(id) { ["busy", "answer", "stop", "stopped", "bad"].forEach(function (s) { $(s).hidden = s !== id; }); }
+  function show(id) { ["busy", "answer", "stop", "stopped", "kept", "bad"].forEach(function (s) { $(s).hidden = s !== id; }); }
   function call(action, words) {
     return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ t: t, a: action, w: words || null }) })
@@ -86,40 +201,45 @@
       .catch(function () { return { ok: false, error: "network" }; });
   }
   function mark(face) {
+    if (!COPY[face]) return;
+    var sec = $("answer");
+    sec.className = "mood-" + face;
+    var cat = sec.querySelector(".cat"); cat.style.animation = "none"; void cat.getBoundingClientRect(); cat.style.animation = "";
     document.querySelectorAll(".face").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.a === face)); });
-    $("saved").hidden = !face;
+    var c = COPY[face];
+    $("title").textContent = c.title(first);
+    $("lead").textContent = c.lead(first);
+    $("ask").textContent = c.ask;
+    if (c.open && $("note").dataset.sent !== "1") { $("add").hidden = true; $("notebox").hidden = false; }
   }
-  function named(res, title) { if (res.first_name) $(title).textContent = "Thanks, " + res.first_name + ". How has it been dealing with us?"; }
-  function answerView(res) {
-    named(res, "answer-title");
-    mark(res.face);
-    show("answer");
-  }
+  function answerView(res) { first = res.first_name || ""; mark(res.face); show("answer"); }
   if (!t) { show("bad"); return; }
 
   document.querySelectorAll(".face").forEach(function (b) {
     b.addEventListener("click", function () {
-      $("note").textContent = "Saving…";
+      mark(b.dataset.a);
       call(b.dataset.a).then(function (res) {
         if (!res.ok) { show("bad"); return; }
-        mark(res.face); $("note").textContent = "Saved.";
+        mark(res.face); $("note").textContent = "Updated";
       });
     });
   });
+  $("add").addEventListener("click", function () { $("add").hidden = true; $("notebox").hidden = false; $("words").focus(); });
   $("send").addEventListener("click", function () {
     var w = $("words").value.trim();
-    if (!w) { $("note").textContent = "Type a line first, or just tap a face."; return; }
-    $("send").disabled = true; $("note").textContent = "Sending…";
+    if (!w) { $("note").textContent = "Type a note first"; return; }
+    $("send").disabled = true; $("note").textContent = "Sending";
     call("words", w).then(function (res) {
       $("send").disabled = false;
-      if (!res.ok) { $("note").textContent = "That didn't go through. Please reply to the email instead."; return; }
-      $("note").textContent = "Thanks. Our team will read it.";
+      if (!res.ok) { $("note").textContent = "That didn't go through. Just reply to the email instead."; return; }
+      $("notebox").hidden = true; $("note").dataset.sent = "1"; $("note").textContent = "Got your note. Thank you!";
     });
   });
   $("stop-yes").addEventListener("click", function () {
     $("stop-yes").disabled = true;
     call("stop").then(function (res) { if (res.ok) show("stopped"); else show("bad"); });
   });
+  $("stop-no").addEventListener("click", function () { show("kept"); });
 
   if (a === "stop") {
     call("look").then(function (res) {
@@ -129,8 +249,9 @@
       show("stop");
     });
   } else if (FACES.indexOf(a) >= 0) {
-    // The answer is saved only once the page has opened in a browser, not when a link is merely fetched.
-    setTimeout(function () { call(a).then(function (res) { if (!res.ok) { show("bad"); return; } answerView(res); $("note").textContent = ""; }); }, 400);
+    // Show the thank-you at once; the answer is saved only once the page has opened in a browser, not when a link is merely fetched.
+    mark(a); show("answer");
+    setTimeout(function () { call(a).then(function (res) { if (!res.ok) { show("bad"); return; } answerView(res); }); }, 400);
   } else {
     call("look").then(function (res) { if (!res.ok) { show("bad"); return; } answerView(res); });
   }
