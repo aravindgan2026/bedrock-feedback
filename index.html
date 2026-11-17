@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://slkqgmftytsprzqufdjp.supabase.co; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Bedrock feedback</title>
+<style>
+  :root { --bg:#F6E0D0; --card:#FFFFFF; --ink:#3B2716; --muted:#7A6555; --accent:#FF4D00; --line:#EBD3C0; --ok:#2F7A4A; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:32px max(16px, env(safe-area-inset-left)) 40px max(16px, env(safe-area-inset-right)); }
+  .card { background:var(--card); border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; gap:18px; }
+  .brand { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+  h1 { font-size:22px; line-height:1.3; margin:0; }
+  p { margin:0; }
+  .muted { color:var(--muted); font-size:14px; }
+  .faces { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .face { flex:1 1 130px; padding:14px 16px; border-radius:14px; border:2px solid var(--accent); background:#fff; color:var(--ink); font:600 17px/1.2 inherit; cursor:pointer; }
+  .face[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  .face:focus-visible, button:focus-visible, textarea:focus-visible { outline:3px solid var(--ink); outline-offset:2px; }
+  textarea { width:100%; min-height:96px; border:1px solid var(--line); border-radius:12px; padding:12px; font:inherit; color:var(--ink); resize:vertical; }
+  .primary { align-self:flex-start; padding:12px 20px; border-radius:12px; border:0; background:var(--ink); color:#fff; font:600 16px/1 inherit; cursor:pointer; }
+  .primary[disabled] { opacity:.5; cursor:default; }
+  .note { font-size:14px; color:var(--ok); min-height:1.2em; }
+  .foot { text-align:center; font-size:12px; color:var(--muted); margin-top:14px; }
+  .foot a { color:var(--muted); }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="brand">Bedrock</div>
+
+    <section id="busy"><p class="muted">One moment…</p></section>
+
+    <section id="answer" hidden style="display:flex;flex-direction:column;gap:18px">
+      <h1 id="answer-title">How has it been dealing with us?</h1>
+      <p id="saved" class="muted" hidden>Your answer is saved. Tap another face to change it.</p>
+      <div class="faces" role="group" aria-label="Your answer">
+        <button class="face" data-a="good" aria-pressed="false">&#128578;&nbsp;Good</button>
+        <button class="face" data-a="okay" aria-pressed="false">&#128528;&nbsp;Okay</button>
+        <button class="face" data-a="not_good" aria-pressed="false">&#128577;&nbsp;Not good</button>
+      </div>
+      <label for="words" class="muted">Anything to add? It goes to our team. (Optional)</label>
+      <textarea id="words" maxlength="2000"></textarea>
+      <button id="send" class="primary" type="button">Send</button>
+      <p id="note" class="note" role="status" aria-live="polite"></p>
+      <p class="muted">Answers go to our team so we can do better. They do not change anything on a deal.</p>
+    </section>
+
+    <section id="stop" hidden style="display:flex;flex-direction:column;gap:18px">
+      <h1 id="stop-title">Stop these emails?</h1>
+      <p class="muted">We will not send you feedback questions again.</p>
+      <button id="stop-yes" class="primary" type="button">Yes, stop them</button>
+    </section>
+
+    <section id="stopped" hidden style="display:flex;flex-direction:column;gap:12px">
+      <h1>Done.</h1>
+      <p class="muted">You won't get these feedback emails from us again.</p>
+    </section>
+
+    <section id="bad" hidden style="display:flex;flex-direction:column;gap:12px">
+      <h1>This link isn't working.</h1>
+      <p class="muted">It may be incomplete or out of date. You can reply to the email in your own words instead, and it reaches our team.</p>
+    </section>
+  </div>
+  <p class="foot">Bedrock Applications, Inc. · PO Box 5332, Atlanta, GA 31107</p>
+</main>
+<script>
+(function () {
+  var API = "https://slkqgmftytsprzqufdjp.supabase.co/functions/v1/feedback-tap";
+  var q = new URLSearchParams(location.search);
+  var t = q.get("t") || "";
+  var a = q.get("a") || "look";
+  var FACES = ["good", "okay", "not_good"];
+  function $(id) { return document.getElementById(id); }
+  function show(id) { ["busy", "answer", "stop", "stopped", "bad"].forEach(function (s) { $(s).hidden = s !== id; }); }
+  function call(action, words) {
+    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ t: t, a: action, w: words || null }) })
+      .then(function (r) { return r.json(); })
+      .catch(function () { return { ok: false, error: "network" }; });
+  }
+  function mark(face) {
+    document.querySelectorAll(".face").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.a === face)); });
+    $("saved").hidden = !face;
+  }
+  function named(res, title) { if (res.first_name) $(title).textContent = "Thanks, " + res.first_name + ". How has it been dealing with us?"; }
+  function answerView(res) {
+    named(res, "answer-title");
+    mark(res.face);
+    show("answer");
+  }
+  if (!t) { show("bad"); return; }
+
+  document.querySelectorAll(".face").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $("note").textContent = "Saving…";
+      call(b.dataset.a).then(function (res) {
+        if (!res.ok) { show("bad"); return; }
+        mark(res.face); $("note").textContent = "Saved.";
+      });
+    });
+  });
+  $("send").addEventListener("click", function () {
+    var w = $("words").value.trim();
+    if (!w) { $("note").textContent = "Type a line first, or just tap a face."; return; }
+    $("send").disabled = true; $("note").textContent = "Sending…";
+    call("words", w).then(function (res) {
+      $("send").disabled = false;
+      if (!res.ok) { $("note").textContent = "That didn't go through. Please reply to the email instead."; return; }
+      $("note").textContent = "Thanks. Our team will read it.";
+    });
+  });
+  $("stop-yes").addEventListener("click", function () {
+    $("stop-yes").disabled = true;
+    call("stop").then(function (res) { if (res.ok) show("stopped"); else show("bad"); });
+  });
+
+  if (a === "stop") {
+    call("look").then(function (res) {
+      if (!res.ok) { show("bad"); return; }
+      if (res.stopped) { show("stopped"); return; }
+      if (res.first_name) $("stop-title").textContent = res.first_name + ", stop these emails?";
+      show("stop");
+    });
+  } else if (FACES.indexOf(a) >= 0) {
+    // The answer is saved only once the page has opened in a browser, not when a link is merely fetched.
+    setTimeout(function () { call(a).then(function (res) { if (!res.ok) { show("bad"); return; } answerView(res); $("note").textContent = ""; }); }, 400);
+  } else {
+    call("look").then(function (res) { if (!res.ok) { show("bad"); return; } answerView(res); });
+  }
+})();
+</script>
+</body>
+</html>
