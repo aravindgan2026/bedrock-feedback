@@ -387,12 +387,48 @@
       setTimeout(finish, burst($("send")));
     });
   });
+  // Reads and scrolls (operator 2026-11-19, same idea as the Sussex page). Starts only on a real link that the server accepted, never in
+  // preview or on a bad link. Pings "read" after 20, 60 and 180 seconds with the tab in view, and once when the person leaves, carrying
+  // seconds in view and how far down the page they got. A ping that fails is ignored; nothing on the page depends on it.
+  var MARKS = [20, 60, 180];
+  function startReads() {
+    var secs = 0, deepest = 0, lastSecs = -1, lastScroll = -1, next = 0, timer = 0;
+    function depth() {
+      var el = document.documentElement, h = Math.max(el.scrollHeight || 0, document.body ? document.body.scrollHeight : 0, 1);
+      var bottom = (window.pageYOffset || el.scrollTop || 0) + (window.innerHeight || el.clientHeight || 0);
+      var d = bottom >= h - 4 ? 100 : Math.round(100 * bottom / h);   // within 4 pixels of the end counts as the end
+      if (d > deepest) deepest = Math.min(d, 100);
+    }
+    function send(leaving) {
+      depth();
+      if (secs < 1) return;   // loaded and gone in under a second (a link checker, a preview): not a read
+      if (secs === lastSecs && deepest === lastScroll) return;
+      lastSecs = secs; lastScroll = deepest;
+      var body = JSON.stringify({ t: t, a: "read", w: null, d: { secs: secs, scroll: deepest } });
+      try {
+        if (leaving && navigator.sendBeacon && navigator.sendBeacon(API, new Blob([body], { type: "text/plain;charset=UTF-8" }))) return;
+        fetch(API, { method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: body, keepalive: true }).catch(function () {});
+      } catch (e) {}
+    }
+    depth();
+    window.addEventListener("scroll", depth, { passive: true });
+    window.addEventListener("resize", depth);
+    timer = setInterval(function () {
+      if (document.hidden) return;
+      secs += 1;
+      if (next < MARKS.length && secs >= MARKS[next]) { next += 1; send(false); }
+      if (secs >= 3600) clearInterval(timer);
+    }, 1000);
+    document.addEventListener("visibilitychange", function () { if (document.hidden) send(true); });
+    window.addEventListener("pagehide", function () { send(true); });
+  }
   show("answer");
   if (PREVIEW) return;
   if (!t) { show("bad"); return; }
   // wired page (/holder/): "look" when the page opens (returns the first name), then the yes / no from the email button
   call("look").then(function (res) {
     if (res && res.ok) {
+      startReads();
       if (typeof res.first_name === "string" && res.first_name.trim()) { name = res.first_name.trim().slice(0, 40); setA(a); }
       if (qa === "yes" || qa === "no") call(qa).then(function (r2) { if (!r2 || !r2.ok) $("note").textContent = "We could not save that tap. Please reply to the email instead."; });
     } else if (!res || res.error !== "network") {
