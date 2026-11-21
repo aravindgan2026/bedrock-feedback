@@ -3,17 +3,23 @@
 > Bedrock (Bedrock Applications, Inc.) puts together private real estate deals for accredited investors.
 
 ## Who we are
-- Company: Bedrock Applications, Inc.
-- Team: Aravind (CEO), Shravaan (Head of Growth), Ashley (COO), Pavan (CTO).
+- Company: Bedrock Applications, Inc., a Delaware corporation formed in 2022, based in Atlanta, Georgia.
+- Company backers: Bedrock is venture-backed. Its company investors include a Georgia Tech venture fund and Fusen World, the Atlanta startup fund led by Christopher Klaus, founder of Internet Security Systems and co-founder of CyberLaunch VC. Bedrock came out of Georgia Tech's CREATE-X startup program and went through Fusen's Ignite program (Cohort 1).
+- Bedrock also works with private equity firms on some of its deals.
+- Aravind Ganesan, Founder and CEO: B.S. in Environmental Engineering from the Georgia Institute of Technology (High Honors), with a minor from Georgia Tech's Denning Technology and Management Program. Took part in Georgia Tech CREATE-X. Earlier work: Boeing (capstone consultant), Gartner, and JE Dunn Construction (project engineer and estimator).
+- Pavan Murugesh, CTO: Electrical Engineering and Computer Science at the University of California, Berkeley. Leads Bedrock's technology and product.
+- Shravaan Sinnassamy, Head of Growth. Ashley Fuller, COO.
+- Legal counsel: Bowery Legal LLC.
 - Website and contact: https://mybedrock.app
 
 ## What we do
 - A builder buys and renovates a property and needs the last part of the money. Accredited investors provide that part and own a share of that one project. It is an equity investment, not a loan.
-- So far, 19 investors have invested $661,657.59 through Bedrock.
+- So far, 19 accredited deal investors have put $661,657.59 through Bedrock, alongside bank loans and builders' own money, in projects costing more than $6 million in total.
 
 ## How it works for investors
+- How Bedrock earns: only a service fee for structuring, legal work, offering papers and filings, paid by the builder, not by investors. Bedrock takes no share of deal profit. The fee is set in each deal's papers.
 - Each deal has its own papers (operating agreement, appraisal, contract, repair plan), shared through a private personal link.
-- When a property sells, the bank loan and project bills are paid first, then investors get their money back before the builder, then profits are split, as set in each deal's operating agreement.
+- When a property sells, the bank loan and project bills are paid first, then deal investors are paid back first if the sale brings in enough, then the builder's own money, then profits are split between the investors and the builder, as set in each deal's operating agreement.
 
 ## Partners
 - Partners are real estate and finance professionals who share Bedrock deals with people they know.
