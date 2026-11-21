@@ -1,0 +1,31 @@
+# Bedrock
+
+> Bedrock (Bedrock Applications, Inc.) puts together private real estate deals for accredited investors.
+
+## Who we are
+- Company: Bedrock Applications, Inc.
+- Team: Aravind (CEO), Shravaan (Head of Growth), Ashley (COO), Pavan (CTO).
+- Website and contact: https://mybedrock.app
+
+## What we do
+- A builder buys and renovates a property and needs the last part of the money. Accredited investors provide that part and own a share of that one project. It is an equity investment, not a loan.
+- So far, 19 investors have invested $661,657.59 through Bedrock.
+
+## How it works for investors
+- Each deal has its own papers (operating agreement, appraisal, contract, repair plan), shared through a private personal link.
+- When a property sells, the bank loan and project bills are paid first, then investors get their money back before the builder, then profits are split, as set in each deal's operating agreement.
+
+## Partners
+- Partners are real estate and finance professionals who share Bedrock deals with people they know.
+- Partners do not give investment advice. Investors read the papers, ask the Bedrock team their questions and decide on their own.
+- Each partner's terms are in their written partner agreement.
+
+## Risks
+- Investors can lose some or all of their money.
+- Money is tied up until the property sells.
+- Costs can rise, sales can take longer and prices can fall. A builder can fail to pay or finish, and liens or title problems can come up.
+- Past results do not predict future results. Bedrock is a young company.
+
+## Legal
+- Bedrock's deals are private offerings under SEC Rule 506(b), for accredited investors only.
+- This is not an offer to sell or a request to buy any security.
